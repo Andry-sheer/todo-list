@@ -92,6 +92,7 @@ const TodoList = () => {
   const handleEdit = (name, id) => {
     setName(name);
     setEditId(id);
+    setShow(true);
   };
 
   const setIsDone = async (id, isDone) => {
