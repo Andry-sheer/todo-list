@@ -1,0 +1,14 @@
+
+.icon-button {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.item {
+  cursor: pointer;
+}
+
+.item-done {
+  cursor: pointer;
+  text-decoration: line-through;
+}
