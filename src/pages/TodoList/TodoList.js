@@ -5,6 +5,8 @@ import Form from "../../components/Form/Form";
 import Input from "../../components/Input/Input";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import ButtonClear from "../../components/ButtonClear/ButtonClear";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -95,6 +97,15 @@ const TodoList = () => {
     setShow(true);
   };
 
+
+
+  const handleClear = () => {
+    setName(""); // Очищаем поле name
+    setEditId("");
+  };
+
+
+
   const setIsDone = async (id, isDone) => {
     try {
       await fetch(`${API_URL}/todos/${id}`, {
@@ -125,7 +136,8 @@ const TodoList = () => {
       <Button variant="primary" onClick={() => setShow(true)}>
         Add/Edit
       </Button>
-      <Modal show={show} onHide={() => setShow(false)}>
+      <Modal show={show}
+        onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title> Add/Edit TODO </Modal.Title>
         </Modal.Header>
@@ -137,7 +149,7 @@ const TodoList = () => {
             </label>
           </Form>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
+        <Modal.Footer><ButtonClear onClear={handleClear} /></Modal.Footer>
       </Modal>
     </div>
   );
