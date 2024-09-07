@@ -5,8 +5,10 @@ import Form from "../../components/Form/Form";
 import Input from "../../components/Input/Input";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import ButtonClear from "../../components/ButtonClear/ButtonClear";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import ButtonClear from "../../components/Button/Button";
+
+const clear = "clear field";
+const cancel = "cancel";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -101,7 +103,14 @@ const TodoList = () => {
 
   const handleClear = () => {
     setName(""); // Очищаем поле name
+    // setEditId("");
+  };
+
+  const handleCancel = () => {
+    setName("");
     setEditId("");
+    setEditId(null);
+    setShow(false);
   };
 
 
@@ -149,7 +158,7 @@ const TodoList = () => {
             </label>
           </Form>
         </Modal.Body>
-        <Modal.Footer><ButtonClear onClear={handleClear} /></Modal.Footer>
+        <Modal.Footer><ButtonClear variant="warning" text={clear} onClear={handleClear} /> <ButtonClear text={cancel} variant="danger" onClear={handleCancel} /> </Modal.Footer>
       </Modal>
     </div>
   );

@@ -1,12 +1,11 @@
 
 import Button from "react-bootstrap/Button";
-import './ButtonClear.css';
+import './Button.css';
 
-const ButtonClear = ({ onClear }) => {
+const ButtonClear = ({ variant, onClear, text }) => {
   return (
-    <Button variant="danger" onClick={onClear}>
-      Clear
-    </Button>
+    <Button variant={variant} onClick={onClear}>{text}</Button>
+    
   );
 };
 
