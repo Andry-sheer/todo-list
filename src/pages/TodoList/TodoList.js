@@ -6,14 +6,15 @@ import Input from "../../components/Input/Input";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ButtonClear from "../../components/Button/Button";
+import { addTodo, setIsLoaded } from "../../modules/actions/todos";
+import { connect } from "react-redux";
 
 const clear = "clear field";
 const cancel = "cancel";
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([]);
+const TodoList = ({ addTodo, isLoaded, setIsLoaded }) => {
   const [name, setName] = useState("");
-  const [isLoaded, setIsLoaded] = useState(false);
+
   const [editId, setEditId] = useState(null);
   const [show, setShow] = useState(false);
 
@@ -28,14 +29,14 @@ const TodoList = () => {
       const response = await fetch(`${API_URL}/todos`);
 
       const data = await response.json();
-      setTodos(data);
+      addTodo(data);
       setIsLoaded(true);
     } catch (error) {
       console.error("ERROR:", error);
     }
   };
 
-  const addTodo = async (event) => {
+  const handleAddTodo = async (event) => {
     event.preventDefault();
 
     try {
@@ -137,7 +138,6 @@ const TodoList = () => {
     <div>
       Todo List
       <List
-        items={todos}
         deleteItem={deleteTodo}
         editItem={handleEdit}
         setIsDone={setIsDone}
@@ -151,7 +151,7 @@ const TodoList = () => {
           <Modal.Title> Add/Edit TODO </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form handleSubmit={editId ? editTodo : addTodo}>
+          <Form handleSubmit={editId ? editTodo : handleAddTodo}>
             <label>
               name:
               <Input value={name} handleChange={setName} />
@@ -164,4 +164,8 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+const mapStateToProps = (state) => ({
+  isLoaded: state.todos.isLoaded,
+})
+
+export default connect(mapStateToProps, { addTodo, setIsLoaded } )(TodoList);
